@@ -1,21 +1,22 @@
 #!/usr/bin/env bash
 set -e
-QUOTE="$1"; AUTHOR="$2"; BG="$3"; MUSIC="$4"; OUT="$5"
+QUOTE="$1"; AUTHOR="$2"; BG="$3"; OUT="$4"
 FONT="assets/fonts/YourFont.ttf"
 
-# Подготовка фона (видео/фото) 20 сек, вертикаль 1080x1920
+# 1) Берём кадр из видео или подготавливаем фото под вертикаль
 if [[ "$BG" == *.jpg || "$BG" == *.png ]]; then
-  ffmpeg -y -loop 1 -i "$BG" -t 20 -vf "scale=1080:1920,zoompan=z='min(zoom+0.0012,1.08)':d=600" -r 30 -pix_fmt yuv420p temp_bg.mp4
+  ffmpeg -y -i "$BG" -vf "scale=1080:1920:force_original_aspect_ratio=cover" -frames:v 1 __bg.jpg
 else
-  ffmpeg -y -i "$BG" -t 20 -vf "scale=1080:1920:force_original_aspect_ratio=cover,fps=30" -pix_fmt yuv420p temp_bg.mp4
+  # берём кадр на 1.5 секунде
+  ffmpeg -y -ss 1.5 -i "$BG" -vf "scale=1080:1920:force_original_aspect_ratio=cover" -frames:v 1 __bg.jpg
 fi
 
-# Наложение затемнения + текста
+# 2) Накладываем затемнение и текст
 SAN=$(echo "$QUOTE" | sed "s/[:]/\\:/g; s/[']/\\'/g; s/\"/'/g")
-ffmpeg -y -i temp_bg.mp4 -i "$MUSIC" -filter_complex "\
-[0:v]format=yuv420p,drawbox=0:0:iw:ih:color=black@0.25:t=fill,\
-drawtext=fontfile=$FONT:text='$SAN':fontcolor=white:fontsize=54:line_spacing=12:box=1:boxcolor=black@0.35:boxborderw=20:x=(w-tw)/2:y=(h/2-th/2),\
-drawtext=fontfile=$FONT:text='— $AUTHOR':fontcolor=white@0.85:fontsize=36:x=(w-tw)/2:y=h-220\
-" -c:v libx264 -preset veryfast -t 20 -c:a aac -shortest "$OUT"
+ffmpeg -y -i __bg.jpg -vf "\
+format=yuv420p,drawbox=0:0:iw:ih:color=black@0.25:t=fill,\
+drawtext=fontfile=$FONT:text='$SAN':fontcolor=white:fontsize=70:line_spacing=14:box=1:boxcolor=black@0.35:boxborderw=24:x=(w-tw)/2:y=(h/2-th/2),\
+drawtext=fontfile=$FONT:text='— $AUTHOR':fontcolor=white@0.85:fontsize=44:x=(w-tw)/2:y=h-220\
+" -q:v 3 "$OUT"
 
-rm -f temp_bg.mp4
+rm -f __bg.jpg
