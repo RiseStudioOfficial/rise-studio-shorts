@@ -53,6 +53,7 @@ if __name__ == "__main__":
         # Для видео можно добавить логику извлечения первого кадра
         # Пока — скачиваем видео и берем первый кадр (упрощенно)
         from moviepy import VideoFileClip
+        from PIL import Image
         import tempfile
         import shutil
 
