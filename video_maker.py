@@ -1,6 +1,6 @@
 import os
 import requests
-import moviepy.editor as mp
+from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
 
 def download_file(url, filename):
     r = requests.get(url, stream=True)
@@ -15,11 +15,11 @@ def create_video(quote, background_url, bg_type):
     download_file(background_url, bg_file)
 
     if bg_type == "image":
-        clip = mp.ImageClip(bg_file, duration=10)
+        clip = ImageClip(bg_file, duration=10)
     else:
-        clip = mp.VideoFileClip(bg_file).subclip(0, 10).resize(height=1080)
+        clip = VideoFileClip(bg_file).subclip(0, 10).resize(height=1080)
 
-    txt_clip = mp.TextClip(
+    txt_clip = TextClip(
         quote,
         fontsize=50,
         color='white',
@@ -28,7 +28,7 @@ def create_video(quote, background_url, bg_type):
         size=(clip.w * 0.8, None)
     ).set_position('center').set_duration(10)
 
-    final = mp.CompositeVideoClip([clip, txt_clip])
+    final = CompositeVideoClip([clip, txt_clip])
     output_path = "final_video.mp4"
     final.write_videofile(output_path, fps=24)
     return output_path
