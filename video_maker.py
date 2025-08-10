@@ -2,6 +2,8 @@ import os
 import requests
 from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
 
+font_path = os.path.join(os.path.dirname(__file__), "Montserrat-Regular.ttf")
+
 def download_file(url, filename):
     r = requests.get(url, stream=True)
     if r.status_code == 200:
@@ -21,7 +23,7 @@ def create_video(quote, background_url, bg_type):
 
     txt_clip = TextClip(
         quote,
-        font="Montserrat-Regular.ttf"
+        font=font_path,
         font_size=50,
         color='white',
         size=(clip.w * 0.8, None)
