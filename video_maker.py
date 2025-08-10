@@ -22,7 +22,7 @@ def create_video(quote, background_url, bg_type):
         clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1080)
 
     txt_clip = TextClip(
-        txt=quote,
+        text=quote,
         font=font_path,
         fontsize=50,
         color='white',
