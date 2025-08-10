@@ -23,11 +23,11 @@ jobs:
     - name: Install dependencies
       run: pip install --no-cache-dir -r requirements.txt
 
-    - name: Check python and pip paths
-      run: |
-        which python
-        python -m pip show moviepy
-        python -c "import moviepy.editor as mp; print(mp.__version__)"
+    # - name: Check python and pip paths
+    #   run: |
+    #     which python
+    #     python -m pip show moviepy
+    #     python -c "import moviepy.editor as mp; print(mp.__version__)"
 
 
     - name: Check pip version and packages
