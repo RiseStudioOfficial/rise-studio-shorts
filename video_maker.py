@@ -26,7 +26,7 @@ def create_vertical_video(quote, background_url, bg_type):
     txt_clip = TextClip(
         txt=quote,
         font=font_path,
-        fontsize=50,
+        font_size=50,
         color='white',
         method='caption',
         size=(int(clip.w * 0.8), 300)
