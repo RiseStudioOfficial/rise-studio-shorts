@@ -1,6 +1,6 @@
 import os
 import requests
-from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
+from moviepy.editor import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
 
 font_path = os.path.join(os.path.dirname(__file__), "Montserrat-Regular.ttf")
 
@@ -22,14 +22,15 @@ def create_video(quote, background_url, bg_type):
         clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1080)
 
     txt_clip = TextClip(
-        quote,
+        txt=quote,
         font=font_path,
-        font_size=50,
+        fontsize=50,
         color='white',
+        method='caption',
         size=(clip.w * 0.8, None)
     ).set_position('center').set_duration(10)
 
     final = CompositeVideoClip([clip, txt_clip])
     output_path = "final_video.mp4"
-    final.write_videofile(output_path, fps=24)
+    final.write_videofile(output_path, fps=24, codec='libx264')
     return output_path
