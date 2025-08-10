@@ -3,6 +3,7 @@ import random
 import requests
 from video_maker import create_video
 from youtube_upload import upload_video
+from thumbnail import create_thumbnail
 
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 
@@ -42,9 +43,36 @@ if __name__ == "__main__":
 
     video_path = create_video(quote, background_url, bg_type)
 
+    # Скачиваем фон для обложки (если видео — берём первый кадр)
+    bg_file = "thumb_bg.jpg"
+    if bg_type == "image":
+        r = requests.get(background_url)
+        with open(bg_file, "wb") as f:
+            f.write(r.content)
+    else:
+        # Для видео можно добавить логику извлечения первого кадра
+        # Пока — скачиваем видео и берем первый кадр (упрощенно)
+        from moviepy.editor import VideoFileClip
+        import tempfile
+        import shutil
+
+        temp_video = "temp_video.mp4"
+        r = requests.get(background_url)
+        with open(temp_video, "wb") as f:
+            f.write(r.content)
+        clip = VideoFileClip(temp_video)
+        frame = clip.get_frame(0)
+        img = Image.fromarray(frame)
+        img.save(bg_file)
+        clip.close()
+        os.remove(temp_video)
+
+    thumbnail_path = create_thumbnail(bg_file, quote)
+
     upload_video(
         video_path,
         title=f"Motivation | {quote[:50]}",
         description=f"{quote}\n\n#motivation #success #inspiration",
-        tags=["motivation", "success", "inspiration", "life", "mindset"]
+        tags=["motivation", "success", "inspiration", "life", "mindset"],
+        thumbnail_path=thumbnail_path
     )
