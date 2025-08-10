@@ -23,8 +23,7 @@ def create_video(quote, background_url, bg_type):
         quote,
         fontsize=50,
         color='white',
-        font='Arial-Bold',
-        method='label',
+        method='caption',
         size=(clip.w * 0.8, None)
     ).set_position('center').set_duration(10)
 
