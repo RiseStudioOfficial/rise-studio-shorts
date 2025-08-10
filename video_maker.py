@@ -24,7 +24,7 @@ def create_video(quote, background_url, bg_type):
     txt_clip = TextClip(
         text=quote,
         font=font_path,
-        fontsize=50,
+        font_size=50,
         color='white',
         method='caption',
         size=(clip.w * 0.8, None)
