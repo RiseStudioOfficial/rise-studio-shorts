@@ -28,7 +28,7 @@ def create_video(quote, background_url, bg_type):
         color='white',
         method='caption',
         size=(int(clip.w * 0.8), 200)
-    ).set_position('center').set_duration(10)
+    ).with_position('center').with_duration(10)
 
     final = CompositeVideoClip([clip, txt_clip])
     output_path = "final_video.mp4"
