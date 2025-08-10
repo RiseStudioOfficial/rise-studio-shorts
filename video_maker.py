@@ -17,7 +17,7 @@ def create_video(quote, background_url, bg_type):
     if bg_type == "image":
         clip = ImageClip(bg_file, duration=10)
     else:
-        clip = VideoFileClip(bg_file).subclipped(0, 10).resize(height=1080)
+        clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1080)
 
     txt_clip = TextClip(
         quote,
