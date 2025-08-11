@@ -1,7 +1,7 @@
 import os
 import requests
 from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
-from moviepy.video.fx import crop
+from moviepy.video.fx import Crop
 
 font_path = os.path.join(os.path.dirname(__file__), "LibertinusSans-Bold.ttf")
 
@@ -19,7 +19,7 @@ def create_vertical_video(quote, background_url, bg_type):
 
     if bg_type == "video":
         clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1920)
-        clip = сrop(x_center=clip.w / 2, width=1080, height=1920, y_center=clip.h / 2)(clip)
+        clip = clip.сrop(x_center=clip.w / 2, width=1080, height=1920, y_center=clip.h / 2)(clip)
     elif bg_type == "image":
         clip = ImageClip(bg_file).with_duration(10).resized((1080, 1920))  # 10 секунд или сколько надо
     else:
