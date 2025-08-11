@@ -27,7 +27,7 @@ def create_vertical_video(quote, background_url, bg_type):
         clip = Crop(x_center=clip.w / 2, width=1080, height=1920, y_center=clip.h / 2)(clip)
 
     txt_clip = TextClip(
-        txt=quote,
+        text=quote,
         font=font_path,
         font_size=50,
         color='white',
