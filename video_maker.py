@@ -18,7 +18,7 @@ def create_vertical_video(quote, background_url, bg_type):
     download_file(background_url, bg_file)
 
     if bg_type == "video":
-        # clip = VideoFileClip(background_url)
+        clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1920)
         clip = Crop(x_center=clip.w / 2, width=1080, height=1920, y_center=clip.h / 2)(clip)
     elif bg_type == "image":
         clip = ImageClip(bg_file).with_duration(10).resized((1080, 1920))  # 10 секунд или сколько надо
