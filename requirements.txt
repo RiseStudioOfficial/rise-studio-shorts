@@ -1,5 +1,6 @@
 requests
 moviepy
 google-api-python-client
+google-cloud-texttospeech
 google-auth
 Pillow
