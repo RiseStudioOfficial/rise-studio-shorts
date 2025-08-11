@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     video = create_vertical_video(quote, background_url, bg_type)
     speech = synthesize_speech(quote)
-    video_path = add_audio_to_video(video_path, speech)
+    video_path = add_audio_to_video(video, speech)
     
 
     # Скачиваем фон для обложки (если видео — берём первый кадр)
