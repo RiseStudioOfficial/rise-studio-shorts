@@ -18,7 +18,6 @@ def create_vertical_video(quote, background_url, bg_type):
     download_file(background_url, bg_file)
 
     if bg_type == "video":
-        clip = clip.resize(height=1920)
         clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1920)
         clip = Crop(x_center=clip.w / 2, width=1080, height=1920, y_center=clip.h / 2)(clip)
     elif bg_type == "image":
