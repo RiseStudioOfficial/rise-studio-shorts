@@ -4,18 +4,19 @@ import requests
 from video_maker import create_vertical_video
 from youtube_upload import upload_video
 from thumbnail import create_thumbnail
+from quotes import get_russian_quote
 
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 
-def get_random_quote():
-    try:
-        res = requests.get("https://zenquotes.io/api/random", timeout=10)
-        if res.status_code == 200:
-            data = res.json()[0]
-            return f"{data['q']} — {data['a']}"
-    except:
-        pass
-    return "Stay positive and keep pushing forward!"
+# def get_random_quote():
+#     try:
+#         res = requests.get("https://zenquotes.io/api/random", timeout=10)
+#         if res.status_code == 200:
+#             data = res.json()[0]
+#             return f"{data['q']} — {data['a']}"
+#     except:
+#         pass
+#     return "Stay positive and keep pushing forward!"
 
 def get_random_background():
     headers = {"Authorization": PEXELS_API_KEY}
@@ -35,7 +36,7 @@ def get_random_background():
     return None, None
 
 if __name__ == "__main__":
-    quote = get_random_quote()
+    quote = get_russian_quote()
     background_url, bg_type = get_random_background()
 
     if not background_url:
