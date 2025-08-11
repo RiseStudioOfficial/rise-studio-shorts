@@ -3,7 +3,7 @@ import requests
 from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
 from moviepy.video.fx import Crop
 
-font_path = os.path.join(os.path.dirname(__file__), "Montserrat-Regular.ttf")
+font_path = os.path.join(os.path.dirname(__file__), "LibertinusSans-Bold.ttf")
 
 def download_file(url, filename):
     r = requests.get(url, stream=True)
