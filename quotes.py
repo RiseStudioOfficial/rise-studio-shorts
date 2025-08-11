@@ -2,7 +2,8 @@ import requests
 
 def get_russian_quote():
     url = "https://quotes.rest/qod?language=ru"
-    headers = {"Accept": "application/json"}
+    headers = {"Accept": "application/json",
+              "Authorization": "Bearer Test"}
     try:
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
