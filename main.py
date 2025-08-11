@@ -1,7 +1,7 @@
 import os
 import random
 import requests
-from video_maker import create_video
+from video_maker import create_vertical_video
 from youtube_upload import upload_video
 from thumbnail import create_thumbnail
 
