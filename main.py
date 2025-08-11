@@ -5,6 +5,8 @@ from video_maker import create_vertical_video
 from youtube_upload import upload_video
 from thumbnail import create_thumbnail
 from quotes import get_russian_quote
+from audio import synthesize_speech
+from video_with_audio import add_audio_to_video
 
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 
@@ -42,7 +44,10 @@ if __name__ == "__main__":
     if not background_url:
         raise Exception("Не удалось получить фон с Pexels API.")
 
-    video_path = create_vertical_video(quote, background_url, bg_type)
+    video = create_vertical_video(quote, background_url, bg_type)
+    speech = synthesize_speech(quote)
+    video_path = add_audio_to_video(video_path, speech)
+    
 
     # Скачиваем фон для обложки (если видео — берём первый кадр)
     bg_file = "thumb_bg.jpg"
