@@ -1,6 +1,6 @@
 import os
 import requests
-from moviepy.editor import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
+from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
 
 font_path = os.path.join(os.path.dirname(__file__), "Montserrat-Regular.ttf")
 
