@@ -44,6 +44,7 @@ if __name__ == "__main__":
     if not background_url:
         raise Exception("Не удалось получить фон с Pexels API.")
 
+    print(f"Тип фона: {bg_type}")
     video = create_vertical_video(quote, background_url, bg_type)
     speech = synthesize_speech(quote)
     video_path = add_audio_to_video(video, speech)
