@@ -41,7 +41,7 @@ if __name__ == "__main__":
     if not background_url:
         raise Exception("Не удалось получить фон с Pexels API.")
 
-    video_path = create_video(quote, background_url, bg_type)
+    video_path = create_vertical_video(quote, background_url, bg_type)
 
     # Скачиваем фон для обложки (если видео — берём первый кадр)
     bg_file = "thumb_bg.jpg"
