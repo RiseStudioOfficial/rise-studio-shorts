@@ -1,6 +1,7 @@
 import os
 import requests
 from moviepy import VideoFileClip, ImageClip, CompositeVideoClip, TextClip
+from moviepy.video.fx.all import crop
 
 font_path = os.path.join(os.path.dirname(__file__), "Montserrat-Regular.ttf")
 
@@ -21,7 +22,7 @@ def create_vertical_video(quote, background_url, bg_type):
     else:
         clip = VideoFileClip(bg_file).subclipped(0, 10).resized(height=1920)
         x_center = clip.w / 2
-        clip = clip.crop(x_center=x_center, width=1080)
+        clip = crop(clip, x_center=x_center, width=1080)
 
     txt_clip = TextClip(
         txt=quote,
