@@ -1,5 +1,5 @@
 from gtts import gTTS
-import io
+import tempfile
 
 def synthesize_speech(text, lang="ru"):
     tts = gTTS(text=text, lang=lang)
